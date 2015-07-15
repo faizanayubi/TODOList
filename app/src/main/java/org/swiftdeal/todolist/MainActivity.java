@@ -30,8 +30,8 @@ implements LoaderManager.LoaderCallbacks<Cursor>
         setContentView(R.layout.activity_main);
 
         String[] from = {DBOpenHelper.TODO_TEXT};
-        int[] to = {android.R.id.text1};
-        cursorAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_expandable_list_item_1, null, from, to, 0);
+        int[] to = {R.id.tvTodo};
+        cursorAdapter = new SimpleCursorAdapter(this, R.layout.todo_list_item, null, from, to, 0);
 
         ListView list = (ListView) findViewById(android.R.id.list);
         list.setAdapter(cursorAdapter);
