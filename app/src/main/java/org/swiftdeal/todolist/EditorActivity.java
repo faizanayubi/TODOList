@@ -1,17 +1,36 @@
 package org.swiftdeal.todolist;
 
+import android.content.ContentValues;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 
 public class EditorActivity extends ActionBarActivity {
+
+    private String action;
+    private EditText editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
+
+        editor = (EditText) findViewById(R.id.editText);
+
+        Intent intent = getIntent();
+
+        Uri uri = intent.getParcelableExtra(TodoProvider.CONTENT_ITEM_TYPE);
+
+        if (uri == null){
+            action = Intent.ACTION_INSERT;
+            setTitle(getString(R.string.add_task));
+        }
+
     }
 
     @Override
@@ -23,16 +42,41 @@ public class EditorActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finishedEditing();
+                break;
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
+    }
+
+    private void finishedEditing() {
+        String newText = editor.getText().toString().trim();
+
+        switch (action){
+            case Intent.ACTION_INSERT:
+                if (newText.length() == 0) {
+                    setResult(RESULT_CANCELED);
+                } else {
+                    insertTodo(newText);
+                }
+        }
+
+        finish();
+    }
+
+    private void insertTodo(String todoText) {
+        ContentValues values = new ContentValues();
+        values.put(DBOpenHelper.TODO_TEXT, todoText);
+        getContentResolver().insert(TodoProvider.CONTENT_URI, values);
+        setResult(RESULT_OK);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishedEditing();
     }
 }

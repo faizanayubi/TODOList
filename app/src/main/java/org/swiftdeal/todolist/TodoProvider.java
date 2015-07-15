@@ -22,6 +22,8 @@ public class TodoProvider extends ContentProvider {
 
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
+    public static final String CONTENT_ITEM_TYPE = "Todo";
+
     static {
         uriMatcher.addURI(AUTHORITY, BASE_PATH, TODOS);
         uriMatcher.addURI(AUTHORITY, BASE_PATH + "/#", TODOS_ID);
