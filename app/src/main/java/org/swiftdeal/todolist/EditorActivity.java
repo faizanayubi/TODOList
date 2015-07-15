@@ -57,7 +57,7 @@ public class EditorActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        switch (item.getItemId()) {
+        switch (id) {
             case android.R.id.home:
                 finishedEditing();
                 break;
