@@ -40,6 +40,11 @@ public class TodoProvider extends ContentProvider {
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+
+        if (uriMatcher.match(uri) == TODOS_ID) {
+            selection = DBOpenHelper.TODO_ID + "=" + uri.getLastPathSegment();
+        }
+
         return database.query(DBOpenHelper.TABLE_TODOS, DBOpenHelper.ALL_COLUMNS, selection, null, null, null, DBOpenHelper.TODO_CREATED + " DESC");
     }
 
