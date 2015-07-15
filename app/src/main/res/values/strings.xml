@@ -4,4 +4,8 @@
     <string name="delete_all_todos">Delete all Todos</string>
     <string name="are_you_sure">Are you Sure?</string>
     <string name="all_deleted">All TODOs deleted</string>
+    <string name="title_activity_editor">EditorActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>

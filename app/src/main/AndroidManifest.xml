@@ -18,10 +18,18 @@
         </activity>
 
         <provider
+            android:name=".TodoProvider"
             android:authorities="org.swiftdeal.todolist.todoprovider"
-            android:name="TodoProvider"
             android:exported="false" />
 
+        <activity
+            android:name=".EditorActivity"
+            android:label="@string/title_activity_editor"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.swiftdeal.todolist.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
