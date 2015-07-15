@@ -1,5 +1,7 @@
 package org.swiftdeal.todolist;
 
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +14,9 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DBOpenHelper helper = new DBOpenHelper(this);
+        SQLiteDatabase database = helper.getWritableDatabase();
     }
 
     @Override
