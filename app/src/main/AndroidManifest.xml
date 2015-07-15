@@ -16,6 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:authorities="org.swiftdeal.todolist.todoprovider"
+            android:name="TodoProvider"
+            android:exported="false" />
+
     </application>
 
 </manifest>
