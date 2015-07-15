@@ -47,8 +47,9 @@ public class EditorActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_editor, menu);
+        if (action.equals(Intent.ACTION_EDIT)){
+            getMenuInflater().inflate(R.menu.menu_editor, menu);
+        }
         return true;
     }
 
@@ -60,9 +61,19 @@ public class EditorActivity extends ActionBarActivity {
             case android.R.id.home:
                 finishedEditing();
                 break;
+            case R.id.action_delete:
+                deleteTodo();
+                break;
         }
 
         return true;
+    }
+
+    private void deleteTodo() {
+        getContentResolver().delete(TodoProvider.CONTENT_URI, todoFilter, null);
+        Toast.makeText(this, getString(R.string.todo_deleted), Toast.LENGTH_SHORT).show();
+        setResult(RESULT_OK);
+        finish();
     }
 
     private void finishedEditing() {
@@ -78,7 +89,7 @@ public class EditorActivity extends ActionBarActivity {
                 break;
             case Intent.ACTION_EDIT:
                 if (newText.length() == 0) {
-//                    deleteTodo();
+                    deleteTodo();
                 } else if (oldText.equals(newText)){
                     setResult(RESULT_CANCELED);
                 } else {
