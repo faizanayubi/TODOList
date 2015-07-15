@@ -19,6 +19,8 @@ public class DBOpenHelper extends SQLiteOpenHelper{
     public static final String TODO_TEXT = "todoText";
     public static final String TODO_CREATED = "todoCreated";
 
+    public static final String[] ALL_COLUMNS = {TODO_ID, TODO_TEXT, TODO_CREATED};
+
     //SQL to create table
     public static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_TODOS + " ( " +

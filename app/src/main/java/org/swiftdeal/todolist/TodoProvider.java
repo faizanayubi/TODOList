@@ -38,7 +38,7 @@ public class TodoProvider extends ContentProvider {
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-        return null;
+        return database.query(DBOpenHelper.TABLE_TODOS, DBOpenHelper.ALL_COLUMNS, selection, null, null, null, DBOpenHelper.TODO_CREATED + " DESC");
     }
 
     @Override
@@ -48,16 +48,17 @@ public class TodoProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        return null;
+        long id = database.insert(DBOpenHelper.TABLE_TODOS, null, values);
+        return Uri.parse(BASE_PATH + "/" + id);
     }
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        return 0;
+        return database.delete(DBOpenHelper.TABLE_TODOS, selection, selectionArgs);
     }
 
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        return 0;
+        return database.update(DBOpenHelper.TABLE_TODOS, values, selection, selectionArgs);
     }
 }

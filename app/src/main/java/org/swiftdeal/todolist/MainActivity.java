@@ -1,9 +1,12 @@
 package org.swiftdeal.todolist;
 
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,6 +17,16 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        insertTodo("New Todo");
+    }
+
+    private void insertTodo(String todoText) {
+        ContentValues values = new ContentValues();
+        values.put(DBOpenHelper.TODO_TEXT, todoText);
+        Uri todoUri = getContentResolver().insert(TodoProvider.CONTENT_URI, values);
+
+        Log.d("MainActivity", "Inserted todo " + todoUri.getLastPathSegment());
     }
 
     @Override
